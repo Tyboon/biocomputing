@@ -1,0 +1,74 @@
+\documentclass[a4paper,10pt]{report}
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{amssymb}
+%\DeclareMathAlphabet\mbi{OML}{cmm}{b}{it}
+\mathversion{bold}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\paragraph{Proof of commutativity} \mbox{}\\
+    \begin{proof}[commutativity]
+   \\Hypothesis : \\
+   ~\\ operator $ \diamond : {\mathbb{R}}^2 \rightarrow \mathbb{R}$
+   ~\\ abstraction $ {\diamond}^\Delta \subseteq {Delta}^3 $
+   ~\\ $(d_{1}, d_{2}) \in \mathbb{R}^2 $
+   ~\\ ${d_{1}', d_{2}') \in \mathbb{R}^2 $
+   ~\\ $d_{1} \diamond d_{2} = d_{2} \diamond d_{1}$
+   ~\\ $d_{1}' \diamond d_{2}' = d_{2}' \diamond d_{1}'$
+   ~\\ $(d_{1}, d_{1}') \in \delta_1 $
+   ~\\ $(d_{2}', d_{2}') \in \delta_2 $\\
+   If $ (\delta_1 , \delta_2 , \delta_3 ) \in \diamond$ \\
+   then $ \forall (d_{1}, d_{1}') \in \delta_2 , (d_{2}, d_{2}') \in \delta_2 , (d_{3}, d_{3}') \in \delta_3 : $
+   ~\\ $ d_{1} \diamond d_2 = d_3\ and\ d_{1}'\diamond d_2' = d_3' $ 
+   \\Moreover : $ d_2 \diamond d_1 = d_3\ and\ d_2' \diamond d_1' = d_3' $
+   \\So $ \forall (d_2,d_2') \in \delta_2 , (d_1,d_1') \in \delta_1 , (d_3,d_3') \in \delta_3 : $
+   ~\\ $ d_2 \diamond d_1 = d_3 \ and\  d_2' \diamond d_1' = d_3' $
+   \\Therefore :$ (\delta_2, \delta_1, \delta_3) \in \diamond^\Delta$
+   \\Finally : $\diamond^\Delta(d_1,d_2) = \diamond^\Delta(d_2,d_1)$
+   \\ $\longrightarrow$ Abstract operator are commutatif.
+    \end{proof}
+
+\paragraph{Proof of associativity}
+  \begin{proof}[associativity]
+    \\Hypothesis : 
+    ~\\operator $ \diamond : {\mathbb{R}}^2 \rightarrow \mathbb{R}$
+   ~\\ abstraction $ {\diamond}^\Delta \subseteq {Delta}^3 $
+   ~\\ $(d_{1}, d_{2}) \in \mathbb{R}^3 $
+   ~\\ ${d_{1}', d_{2}') \in \mathbb{R}^3 $
+   ~\\ $d_{1} (\diamond d_{2}) \diamond \d_3 = (d_1 \diamond d_{2}) \diamond d_{3}$
+   \\ Let's define : $d_4 = d_1 \diamond d_2 , d_5 = d_2 \diamond d_3 , d_4' = d_1' \diamond d_2' , d_5' = d_2' \diamond d_3'$
+   ~\\
+   \\ If $ (\delta_1,\delta_5, \delta_6) \in \diamond^\Delta$
+   ~\\Then $\exists (d_1,d_1') \in \delta_1 , \exists (d_5,d_5') \in \delta_5 , \exists (d_6,d_6') \in \delta_6 : $
+   ~\\$d_1 \diamond d_5 = d_6\ and\ d_1' \diamond d_5' = d_6' $
+   \\Moreover, if $ (\delta_2,\delta_3, \delta_5) \in \diamond^\Delta$
+   ~\\ Then, $ \exists (d_2,d_2') \in \delta_2 , \exists (d_3,d_3') \in \delta_3 :$
+   ~\\ $ d_2 \diamond d_3 = d_5\ and\ d_2' \diamond d_3' = d_5' $
+   ~\\ That's why : $ d_1 \diamond ( d_2 \diamond d_3) = d_6\ and\ d_1' \diamond ( d_2' \diamond d_3') = d_6'$
+   \\
+   \\From Hypothesis : $(d_1 \diamond d_2) \diamond d_3 = d_6\ and\ (d_1' \diamond d_2') \diamond d_3' = d_6'$
+   ~\\ $\longrightarrow d_4 \diamond d_3 = d_6\ and\ d_4' \diamond d_3' = d_6'$
+   \\ So $ \exists (d_4,d_4') \in \delta_4 , \exists (d_3,d_3') \in \delta_3 , \exists (d_6,d_6') \in \delta_6 :$
+   ~\\ $ d_4 \diamond d_3 = d_6\ and\ d_4' \diamond d_3' = d_6'$
+   \\ And $  \exists (d_1,d_1') \in \delta_1 , \exists (d_2,d_2') \in \delta_2 $
+   ~\\ $ d_1 \diamond d_2 = d_4\ and\ d_1' \diamond d_2' = d_4'$ 
+   \\Therefore :$ (\delta_1, \delta_2, \delta_4) \in \diamond^\Delta\ and\ (\delta_4, \delta_3, \delta_6) \in \diamond^\Delta$ \\
+   \\To conclude :$ (\delta_1, \delta_5, \delta_6) \in \diamond^\Delta\ and\ (\delta_4, \delta_3, \delta_6) \in \diamond^\Delta$
+   \\ $\longrightarrow$ Abstract operator are associatif.
+  \end{proof}
+
+\end{document}
