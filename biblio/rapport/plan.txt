@@ -1,0 +1,29 @@
+Rapport master MOCAD
+
+Interprétation abstraite de réseau métabolique pour améliorer les prédictions de knockouts de gènes
+
+Abstract
+	bref introduction résumant le but, le contexte.
+
+1 . Positionnement
+	* Modélisation : réseau pétri, illustration B.Subtilis
+	* Abstraction : contraintes arithmétiques -> contraintes à différence -> interprétation abstraite -> raisonnement qualitatif
+	* Prediction : multiple changes, safety
+
+    Problème trop solutions ... preuve
+
+2 . Contributions
+	* Complitude du modèle : glycolitic pathway, pentose phosphate cycle (parler de la modularité ?)
+	* Safety plus efficace
+	* Preuve commutativité, associativité
+	* Affiner le modèle :
+		- EFMs : malade , ajout de contraintes, visualisation
+
+3 . Expérimentation - résultats
+	* Réduction nombre de solutions ? 
+
+4 . Conclusion - perspective
+	* Etude avec les matrices creuses et comparaison avec efms
+	* interprétation quantitative
+
+
