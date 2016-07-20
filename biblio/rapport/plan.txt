@@ -10,7 +10,7 @@ Abstract
 	* Abstraction : contraintes arithmétiques -> contraintes à différence -> interprétation abstraite -> raisonnement qualitatif
 	* Prediction : multiple changes, safety
 
-    Problème trop solutions ... preuve
+    Problème trop solutions, expliquer problèmes des boucles ... preuve 
 
 2 . Contributions
 	* Complitude du modèle : glycolitic pathway, pentose phosphate cycle (parler de la modularité ?)
@@ -25,5 +25,7 @@ Abstract
 4 . Conclusion - perspective
 	* Etude avec les matrices creuses et comparaison avec efms
 	* interprétation quantitative
+	* Traitement des chemins
+	* Boucles négatives ... 
 
 
