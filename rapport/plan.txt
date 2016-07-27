@@ -2,9 +2,9 @@ Etude de modèles biologiques par les modes élémentaires
 
 I - introduction
 
-II - Réseau de réaction chimique et état stationnaire
+II - Réseau de réaction chimique (flux) et état stationnaire
 		
-	-> matrice de stoechiométrie, illustration sur système simple 
+	-> matrice de stoechiométrie, illustration sur système simple, ODEs
 
 III - Modes élémentaires
 		
