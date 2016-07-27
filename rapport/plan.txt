@@ -1,0 +1,23 @@
+Etude de modèles biologiques par les modes élémentaires
+
+I - introduction
+
+II - Réseau de réaction chimique et état stationnaire
+		
+	-> matrice de stoechiométrie, illustration sur système simple 
+
+III - Modes élémentaires
+		
+	-> M.v = 0 avec v >= 0
+
+IV - Réactions chimiques avec informations partielles
+	
+	-> 	système plus complet avec Inh, Acc, Act
+
+V - Prédiction par abstraction
+
+VI - Intégration des modes élémentaires
+
+	-> Validation ++
+
+VII - Modélisation de la pyruvate (Glycolysis pathway)
