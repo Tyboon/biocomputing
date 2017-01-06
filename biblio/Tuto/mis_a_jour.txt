@@ -1,0 +1,19 @@
+To upgrade all the package necessary
+sudo do-release-upgrade
+
+To enumerate all the packages that will be updated
+sudo do-release-upgrade -d
+
+To check if all is updated
+sudo apt update
+sudo apt full-upgrade
+
+To clean the cache that contain all downloaded packages
+sudo apt-get clean
+sudo apt-get autoclean
+sudo apt-get autoremove
+
+To check Ubuntu version 
+lsb_release -a
+
+
