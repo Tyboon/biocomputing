@@ -1,0 +1,245 @@
+\documentclass[a4paper,10pt]{article}
+%\documentclass[a4paper,10pt]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+
+\title{}
+\author{}
+\date{}
+
+\pdfinfo{%
+  /Title    ()
+  /Author   ()
+  /Creator  ()
+  /Producer ()
+  /Subject  ()
+  /Keywords ()
+}
+
+\begin{document}
+\maketitle
+
+\paragraph{Arithmetic constraints :}
+$$
+\begin{array}{rcl}
+   \phi &::=   &  x{=}\kappa^{(i)}(x_1,\ldots,x_k)  \quad\mid\quad x=x_1+x_2
+                 \quad\mid\quad x=x_1\cdot x_2 \quad\mid       \\
+           &&  x_1=x_2  \quad\mid\quad x\in S \quad\mid\quad \phi \wedge \phi' \quad\mid\quad \exists x.\phi
+\end{array}
+$$ 
+
+where $i\in \Nat$, $\kappa:\PosReal^k\to\PosReal$, $x,x_1,x_2$ are variables, and $S\subseteq\PosReal$ a finite set.
+A solution of an arithmetic constraint $\phi$ with $n$ variables can be identified with a tuple in $\PosReal^n$ since we assumed a total
+order on the variables. Therefore, the solution set $\Sol(\phi)$ of a formula $\phi$ satisfies $\Sol(\phi)\subseteq \PosReal^n$.
+
+
+\begin{lemma}
+The steady state equations of any reaction network
+$N$ can be rewritten in linear time to an equivalent
+arithmetic constraint $\phi_N$ so that:
+       $$\Sol(\phi_N) = \ExR_N$$
+\end{lemma}
+
+\begin{proof}
+It is sufficient to flatten the terms in steady state equations, 
+by introducing new existentially bound variables for all nested 
+subterms. The resulting constraint $\phi_N$  is clearly equivalent, 
+and thus it satisfies $\Sol(\phi_N) = \ExR_N$ by Definition
+\ref{def:ExR} of the exchange relation.
+\end{proof}
+
+\paragraph{A difference constraint :}
+where $x$ is a variable, $d \in \PosReals$, 
+$S\subseteq \PosReals$, and  $\kappa:\PosReals^k\to \PosReals$:
+$$
+\begin{array}{l@{\quad}rcl}
+\text{difference relation} &   t  &  ::=& x \mid d \\
+\text{set of difference relations} 
+            &   s   & ::=& t \mid S \mid s+s' \mid s\cdot s'
+                                   \mid \kappa(s_1,\ldots,s_k)  \\
+\text{difference constraints} &   \psi &::=& t \in s \mid 
+            t {=}t' \mid
+            \psi \wedge \psi' \mid \exists x.\psi
+\end{array}
+$$
+
+
+\begin{figure}
+\joachiminline{
+\begin{tabular}{l}
+Difference relations: \\[.5em]
+\qquad $\SemEle{x} = \alpha(x)   $  \\
+\qquad $\SemEle{d} = \mbox{ unique element of  } \DIFF{\{d\}}$  
+ \\[.5em]
+Sets of difference relations:\\[.5em]
+\qquad $\begin{array}{ll}
+\SemSet{t}  = \{ \SemEle{t} \} & 
+ \SemSet{S} = \DIFF{S}  
+\\
+\SemSet{s\cdot s'} = \SemSet{s} \DIFF{\cdot}  \SemSet{s'} &
+  \SemSet{s+ s'} = \SemSet{s} \DIFF{+}  \SemSet{s'}
+\\
+ \multicolumn{2}{l}{\SemSet{\kappa(s_1,\ldots,s_k)} = \DIFF{\kappa}
+  (\SemSet{s_1},\ldots,\SemSet{s_k})}
+\\[.5em]
+\end{array}
+$
+\\
+Difference constraints:\\[.5em]
+\qquad $\begin{array}{ll}
+  \SemBool{t\in s} = (\SemEle{t} \in \SemSet{s}) &
+  \SemBool{t=t'} = (\SemEle{t} = \SemEle{t'}) 
+\\
+  \SemBool{\psi \wedge\psi'} = \SemBool{\psi} \wedge^\Bool  \SemBool{\psi'} 
+&
+  \SemBool{\exists x.\psi} = (\exists
+  \delta\in\Delta. \SemBoolAlpha{\psi}{\alpha[x/\delta]} = 1) 
+\end{array}
+$
+\end{tabular}
+} %\joachiminline
+\caption{\label{sem:dc}Semantics of difference constraints over
+  $\Delta$.}
+\end{figure}
+
+The set of all \emph{$\Delta$-solutions} of a difference constraints $\psi$
+with free variables $x_1,\ldots, x_n$ -- listed in their order -- is the
+following subset of $\Delta^n$:
+$$
+  \Sol^\Delta(\psi) = \{(\alpha(x_1),\ldots,\alpha(x_n)) \mid
+  \SemBool{\psi}= 1\}
+$$
+
+\paragraph{Abstract interpretation :}
+
+We can now abstract from arithmetic constraints by
+interpreting them as difference constraints:
+$$
+\begin{array}{l@{\qquad}l}
+\Enc{x{=}\kappa^{(i)}(x_1,\ldots,x_k)} =_\DEF x\in
+  \kappa(x_1,\ldots,x_k) &
+\Enc{x\in S} =_\DEF x \in S 
+\\
+\Enc{x=x_1+x_2} =_\DEF x\in x_1+ x_2  &
+\Enc{\phi\wedge\phi'} =_\DEF \Enc\phi\wedge\Enc{\phi'}   
+\\
+\Enc{x=x_1\cdot x_2} =_\DEF x\in x_1\cdot x_2 
+&
+\Enc{\exists x. \phi} =_\DEF \exists x.\Enc{\phi} 
+\\
+\Enc{x_1{=}x_2} =_\DEF (x_1{=}x_2)   
+\end{array}
+$$
+
+\begin{theorem}[Soundness]
+For any arithmetic constraint $\phi$ and any partition $\Delta$ of
+difference relations, the $\Delta$-solution set of the abstract
+interpretation of $\psi$ over-approximates the $\Delta$-difference 
+abstraction of the solution set of $\phi$, that is:
+\label{theo}
+ $$\DIFF{\Sol(\phi)} \subseteq \Sol^\Delta(\Enc{\phi}).$$
+\end{theorem}
+
+\begin{proof} We first note that for any two relations
+$R_1,R_2\subseteq
+  \PosReal^n$:
+$$\text{(intersect)}\qquad \DIFF{(R_1\cap R_2)}\subseteq \DIFF{R_1}\cap
+\DIFF{R_2}$$
+This can be verified straightforwardly from the definition
+of the difference abstraction. It will turn out to be the 
+reason why proper approximations may appear when 
+abstracting conjunctions.
+
+Then we proceed by induction on the structure of arithmetic
+constraints $\phi$. For the variables in the proof, we always 
+assume for simplicity that they are ordered $x_1 x_2\ldots x_k x$.
+
+
+\begin{description}
+\item [Case $\phi$ is $x=\kappa^{(i)}(x_1,\ldots,x_k)$.]
+\joachiminline{By definition of solutions we have that $\Sol(\phi)= \{(d_1,$
+$\ldots,d_k,d) \in\PosReal^{k+1}
+\ \mid\ $$d=\kappa'(d_1,\ldots,d_k),\ \kappa'\sim_\Delta \kappa\}$,
+i.e., $\Sol(\phi)=\{ \kappa'\mid
+\kappa'\sim_\Delta\kappa\}$. Thus, $ \DIFF{\Sol(\phi)} =
+\DIFF{\kappa}$. 
+Furthermore, $\Enc{\phi}$ is equal to $x{\in} \kappa(x_1,\ldots,x_k)$
+so that $\Sol^\Delta(\Enc{\phi})= \kappa^\Delta=
+ \DIFF{\Sol(\phi)}$. }%joachiminline
+\item [Case $\phi$ is $x=x_1+x_2$.] 
+\joachiminline{This follows, since 
+$\DIFF{\SOL\phi} = \DIFF{+}$. Furthermore 
+$\Enc{\phi}$ is equal to $x\in x_1+x_2$ so 
+that $\Sol^\Delta(\Enc{\phi}) = \DIFF{+}$ and thus $\DIFF{\SOL\phi}
+=\Sol^\Delta{(\Enc\phi)}$.} % joachiminline
+\item [Case $\phi$ is $x=x_1\cdot x_2$.] 
+This follows in analogy to the case of addition.
+\item [Case $\phi$ is $x_1=x_2$.] We first note that
+$\DIFF{\{(d,d)\mid d\in
+  \PosReal\}}=\{(\delta,\delta)\mid\delta\in\Delta\}$
+since $\Delta$ is a partition of $\PosReals\times\PosReals$.
+We now can conclude as follows:
+$\DIFF{\SOL\phi}= \DIFF{\{(d,d)\mid d\in
+  \PosReal\}}=\{(\delta,\delta)\mid\delta\in\Delta\} =
+\Sol^\Delta{\Enc{\phi}}$.
+\item [Case $\phi$ is $x\in S$.] \joachiminline{In this case we have $\Sol(\phi)=S$,
+so that $\DIFF{\Sol(\phi)}=\DIFF{S}=\Sol^\Delta(x\in S)=\Sol^\Delta(\Enc{\phi})$.} 
+\item [Case $\phi$ is $\phi_1\wedge \phi_2$.] Hence
+$\Sol(\phi)=\Sol(\phi_1)\cap\Sol(\phi_2)$ and thus
+as claimed by (intersect) at the beginning
+$\DIFF{\Sol(\phi)}\subseteq \DIFF{\Sol(\phi_1)}\cap
+  \DIFF{\Sol(\phi_2)}$.
+From the induction hypothesis applied to $\phi_1$ and $\phi_2$, 
+it follows that $\DIFF{\Sol(\phi_i)}\subseteq \Sol(\Enc{\phi_i})$
+for $i=1,2$, and thus
+$\DIFF{\Sol(\phi)}\subseteq \DIFF{\Sol(\phi_1)}\cap
+  \DIFF{\Sol(\phi_2)}\subseteq \Sol^\Delta(\Enc{\phi_1})
+\cap \Sol^\Delta(\Enc{\phi_2}) = \Sol^\Delta(\Enc{\phi})$.
+\item [Case $\phi$ is $\exists x.\phi'$.]
+There case where $x$ does not occur freely in $\phi'$ is
+easy, since we can drop the quantifier $\exists x$. Otherwise,
+we can assume that $\phi'$ has the free variables
+$x_1,...,x_k$ and that $x=x_i$ where $1\le i\le k$.
+For any set $D$ and tuple set $S\subseteq D^k$ we
+define the projection $\Pi_x(S)=\{(d_1,\ldots, d_{i-1},d_{i+1},\ldots,d_k)\mid
+(d_1,\ldots,d_k)\in S\}$. We first note that: $$\text{(project)}\qquad \Pi_x
+\DIFF{(\Sol(\phi'))} 
+= \DIFF{(\Pi_x(\Sol(\phi')))}$$
+All elements of $\PosReal\times\PosReal$ belong to some
+difference in $\Delta$.
+Based on the equation on projection, we can conclude as follows:
+$$
+\begin{array}{ll}
+\DIFF{\Sol(\exists x.\phi')} &= \DIFF{(\Pi_x(\Sol(\phi')))}
+=_{project} \Pi_x \DIFF{(\Sol(\phi'))} 
+\\
+&\subseteq_{ind. hyp.} 
+\Pi_x \Sol(\Enc{\phi'}) = \Sol(\exists x.\Enc{\phi'}) 
+= \Sol^\Delta(\Enc{\exists x.\phi'}).
+\end{array}$$
+\end{description}
+\end{proof}
+
+\begin{corollary}\label{corollary:inclusion} If
+  $\ExR_N=\Sol(\phi_N)$ then $\DIFF{(\ExR_N)}\subseteq\Sol^\Delta(\Enc{\phi_N})$.
+\end{corollary}
+%
+\begin{proof} 
+This follows immediately from Theorem \ref{theo}.
+%, since $\ExR_N= \Sol(\phi_N)$ by construction of $\phi_N$.
+\end{proof}
+
+\begin{definition}
+The set of \emph{$\Delta$-difference formulas} $\Psi$ is the least set
+that contains all difference constraints $\phi$, all formulas $x\in \Delta'$ 
+where $x$ is a variable and $\Delta'\subseteq \Delta$, and
+that is closed under the first-order connectives, ie.:
+$$
+   \Psi ::= \phi \mid x\in \Delta' \mid \Psi\wedge \Psi' \mid \neg
+   \Psi \mid \exists x.\Psi
+$$
+\end{definition}
+We define the $\Delta$-difference formula $x=\delta$ as syntactic 
+sugar for $x\in\{\delta\}$  for any $\delta\in\Delta$ and variable $x$.
+
+\end{document}

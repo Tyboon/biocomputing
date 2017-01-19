@@ -1,0 +1,30 @@
+\documentclass[a4paper,10pt]{article}
+%\documentclass[a4paper,10pt]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+
+\title{}
+\author{}
+\date{}
+
+\pdfinfo{%
+  /Title    ()
+  /Author   ()
+  /Creator  ()
+  /Producer ()
+  /Subject  ()
+  /Keywords ()
+}
+
+\begin{document}
+\maketitle
+
+Arithmetic constraints :
+$$
+\begin{array}{rcl}
+   \phi &::=   &  x{=}\kappa^{(i)}(x_1,\ldots,x_k)  \quad\mid\quad x=x_1+x_2
+                 \quad\mid\quad x=x_1\cdot x_2 \quad\mid       \\
+           &&  x_1=x_2  \quad\mid\quad x\in S \quad\mid\quad \phi \wedge \phi' \quad\mid\quad \exists x.\phi
+\end{array}
+$$ 
+\end{document}
